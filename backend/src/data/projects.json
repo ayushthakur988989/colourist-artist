@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "CHRONICLES OF SHADOW",
+    "category": "FEATURE FILM",
+    "genre": "Neo-Noir Thriller",
+    "year": "2024",
+    "director": "Aryan Kapoor",
+    "aspectRatio": "2.39:1 Anamorphic",
+    "palette": ["#0A1128", "#1C2541", "#3A86FF", "#D4AF37", "#E2E8F0"],
+    "description": "High-contrast moody color grading utilizing deep cyan shadows balanced with rich amber tungsten skin tones.",
+    "tags": ["DaVinci Resolve", "Kodak 5219 Emulation", "Grain Synthesis"]
+  },
+  {
+    "id": 2,
+    "title": "EUPHORIA IN VELVET",
+    "category": "MUSIC VIDEO",
+    "genre": "Synthwave / Hyper-pop",
+    "year": "2024",
+    "director": "Meera Sen",
+    "aspectRatio": "16:9 Scope",
+    "palette": ["#FF0055", "#7928CA", "#00DFD8", "#FFB703", "#11002C"],
+    "description": "Vibrant neon hues and split-toning designed to elevate pulse-pounding rhythm with hyper-saturated chromatic dynamics.",
+    "tags": ["ACEScc", "Halation FX", "Glow Diffusion"]
+  },
+  {
+    "id": 3,
+    "title": "AURORA HORIZON",
+    "category": "COMMERCIAL",
+    "genre": "Luxury Automotive",
+    "year": "2024",
+    "director": "David Vance",
+    "aspectRatio": "2.35:1 Cinematic",
+    "palette": ["#0F2027", "#203A43", "#2C5364", "#C0C0C0", "#F4D03F"],
+    "description": "Precision automotive grading with clean metallic speculars, pristine reflections, and controlled golden hour skies.",
+    "tags": ["Custom 3D LUTs", "Power Windows", "Tracking"]
+  },
+  {
+    "id": 4,
+    "title": "WHISPERS OF THE VALLEY",
+    "category": "DOCUMENTARY",
+    "genre": "Nature & Human Spirit",
+    "year": "2023",
+    "director": "Kavita Rao",
+    "aspectRatio": "1.85:1 Natural",
+    "palette": ["#283618", "#606C38", "#DDA15E", "#BC6C25", "#FEFAE0"],
+    "description": "Organic, earthy color tone preserving the raw tactile beauty of mountain flora and intimate natural light portraits.",
+    "tags": ["Fuji F-Log", "Natural Print LUT", "Texture Preservation"]
+  }
+]
