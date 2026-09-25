@@ -51,37 +51,53 @@ export default function Navbar() {
   }, [lightingMode])
 
   const playAudio = async () => {
+    const audio = audioRef.current
+    if (!audio) return false
     try {
-      await audioRef.current?.play()
-      setIsPlayingAudio(true)
-      return true
-    } catch {
+      const promise = audio.play()
+      if (promise !== undefined) {
+        await promise
+        setIsPlayingAudio(true)
+        return true
+      }
+      return false
+    } catch (err) {
+      console.log('Autoplay deferred until user interaction:', err)
       return false
     }
   }
 
   useEffect(() => {
-    const retryAfterInteraction = () => {
+    let played = false
+
+    const attemptPlay = () => {
+      if (played) return
       playAudio().then((didPlay) => {
         if (didPlay) {
-          window.removeEventListener('pointerdown', retryAfterInteraction)
-          window.removeEventListener('keydown', retryAfterInteraction)
+          played = true
+          removeListeners()
         }
       })
     }
 
-    playAudio().then((didPlay) => {
-      if (didPlay) {
-        window.removeEventListener('pointerdown', retryAfterInteraction)
-        window.removeEventListener('keydown', retryAfterInteraction)
-      }
+    const interactionEvents = ['click', 'pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel', 'mousemove']
+
+    const removeListeners = () => {
+      interactionEvents.forEach((evt) => {
+        window.removeEventListener(evt, attemptPlay, { capture: true })
+      })
+    }
+
+    // Attempt immediate autoplay on page load/reload
+    attemptPlay()
+
+    // Attach listeners for immediate playback on first interaction if blocked by browser policy
+    interactionEvents.forEach((evt) => {
+      window.addEventListener(evt, attemptPlay, { capture: true, passive: true })
     })
-    window.addEventListener('pointerdown', retryAfterInteraction)
-    window.addEventListener('keydown', retryAfterInteraction)
 
     return () => {
-      window.removeEventListener('pointerdown', retryAfterInteraction)
-      window.removeEventListener('keydown', retryAfterInteraction)
+      removeListeners()
     }
   }, [])
 
