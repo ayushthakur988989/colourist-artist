@@ -11,12 +11,7 @@ const services = [
 ]
 
 const techBadges = [
-  'ACES 1.3',
-  'ARRI RAW',
-  'RED IPP2',
-  'DOLBY VISION',
-  'DCI-P3 D65',
-  'KODAK 5219 EMULATION'
+  
 ]
 
 export default function Hero() {

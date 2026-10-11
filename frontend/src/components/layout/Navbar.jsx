@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MagneticButton from '../ui/MagneticButton'
 import SSLogo from '../ui/SSLogo'
@@ -17,9 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [lightingMode, setLightingMode] = useState('cinema') // 'cinema' | 'd65' | 'warm'
-  const audioRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,69 +48,6 @@ export default function Navbar() {
     }
   }, [lightingMode])
 
-  const playAudio = async () => {
-    const audio = audioRef.current
-    if (!audio) return false
-    try {
-      const promise = audio.play()
-      if (promise !== undefined) {
-        await promise
-        setIsPlayingAudio(true)
-        return true
-      }
-      return false
-    } catch (err) {
-      console.log('Autoplay deferred until user interaction:', err)
-      return false
-    }
-  }
-
-  useEffect(() => {
-    let played = false
-
-    const attemptPlay = () => {
-      if (played) return
-      playAudio().then((didPlay) => {
-        if (didPlay) {
-          played = true
-          removeListeners()
-        }
-      })
-    }
-
-    const interactionEvents = ['click', 'pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel', 'mousemove']
-
-    const removeListeners = () => {
-      interactionEvents.forEach((evt) => {
-        window.removeEventListener(evt, attemptPlay, { capture: true })
-      })
-    }
-
-    // Attempt immediate autoplay on page load/reload
-    attemptPlay()
-
-    // Attach listeners for immediate playback on first interaction if blocked by browser policy
-    interactionEvents.forEach((evt) => {
-      window.addEventListener(evt, attemptPlay, { capture: true, passive: true })
-    })
-
-    return () => {
-      removeListeners()
-    }
-  }, [])
-
-  const toggleAmbientAudio = async () => {
-    const audio = audioRef.current
-    if (!audio) return
-
-    if (audio.paused) {
-      await playAudio()
-    } else {
-      audio.pause()
-      setIsPlayingAudio(false)
-    }
-  }
-
   const handleNavClick = (href) => {
     setIsMobileOpen(false)
     const el = document.querySelector(href)
@@ -123,15 +58,6 @@ export default function Navbar() {
 
   return (
     <>
-      <audio
-        ref={audioRef}
-        src="/intro-audio.mpeg"
-        autoPlay
-        preload="auto"
-        onPlay={() => setIsPlayingAudio(true)}
-        onPause={() => setIsPlayingAudio(false)}
-        onEnded={() => setIsPlayingAudio(false)}
-      />
       <nav
         className="fixed top-0 left-0 right-0 z-[90] transition-all duration-500"
         style={{
@@ -175,7 +101,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right Tools: Ambient Sound & Bias Lighting & CTA */}
+          {/* Right Tools: Bias Lighting & CTA */}
           <div className="flex items-center gap-3 md:gap-4">
             
             {/* Bias Lighting Selector (Cinema / D65 / Warm) */}
@@ -208,22 +134,6 @@ export default function Navbar() {
                 3200K
               </button>
             </div>
-
-            {/* Ambient Sound Audio Toggle */}
-            <button
-              onClick={toggleAmbientAudio}
-              className="flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-white/10 bg-black/40 hover:border-[#38BDF8]/50 transition-all text-[10px] font-mono text-gray-300"
-              title={isPlayingAudio ? 'Mute Studio Ambient Tone' : 'Play Studio Ambient Hum'}
-            >
-              <div className="flex items-end gap-0.5 h-3">
-                <span className={`w-0.5 bg-[#38BDF8] rounded-full transition-all duration-300 ${isPlayingAudio ? 'h-3 animate-pulse' : 'h-1'}`} />
-                <span className={`w-0.5 bg-[#38BDF8] rounded-full transition-all duration-300 ${isPlayingAudio ? 'h-2 animate-bounce' : 'h-1.5'}`} />
-                <span className={`w-0.5 bg-[#38BDF8] rounded-full transition-all duration-300 ${isPlayingAudio ? 'h-3.5 animate-pulse' : 'h-1'}`} />
-              </div>
-              <span className="hidden sm:inline">
-                {isPlayingAudio ? 'AUDIO ON' : 'AUDIO OFF'}
-              </span>
-            </button>
 
             {/* Let's Talk CTA */}
             <MagneticButton

@@ -24,10 +24,10 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    projectType: 'Feature Film',
-    camera: 'ARRI Alexa Mini LF / 35 (LogC3 / LogC4)',
-    deliverable: 'DCI-P3 4K DCP (Theatrical)',
-    timeline: 'Standard 10-14 Days',
+    projectType: '',
+    camera: '',
+    deliverable: '',
+    timeline: '',
     message: ''
   })
   const [status, setStatus] = useState({ state: 'idle', message: '' })
@@ -53,10 +53,10 @@ export default function Contact() {
         setFormData({
           name: '',
           email: '',
-          projectType: 'Feature Film',
-          camera: 'ARRI Alexa Mini LF / 35 (LogC3 / LogC4)',
-          deliverable: 'DCI-P3 4K DCP (Theatrical)',
-          timeline: 'Standard 10-14 Days',
+          projectType: '',
+          camera: '',
+          deliverable: '',
+          timeline: '',
           message: ''
         })
       } else {
@@ -76,7 +76,7 @@ export default function Contact() {
       <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
         <div className="flex items-start gap-4 md:gap-6 mb-10 md:mb-14">
-          <TextReveal type="slideUp" className="text-section-number">09</TextReveal>
+          <TextReveal type="slideUp" className="text-section-number">10</TextReveal>
           <div>
             <TextReveal type="slideUp" delay={0.1}>
               <h2 className="text-display-lg mb-3">INITIATE SESSION</h2>
@@ -201,32 +201,25 @@ export default function Contact() {
                   <label className="block text-[11px] font-mono tracking-wider text-gray-300 uppercase mb-1.5">
                     Project Type
                   </label>
-                  <select
+                  <input
+                    type="text"
                     value={formData.projectType}
                     onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
                     className="w-full px-4 py-3 rounded bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#38BDF8] text-sm transition-colors"
-                  >
-                    <option value="Feature Film">Feature Film</option>
-                    <option value="Commercial Campaign">Commercial / Brand</option>
-                    <option value="Music Video">Music Video</option>
-                    <option value="Short Film / OTT Series">Short Film / OTT</option>
-                    <option value="VFX & Finishing Conform">VFX & Finishing Conform</option>
-                  </select>
+                  />
+
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-mono tracking-wider text-gray-300 uppercase mb-1.5">
                     Camera / RAW Codec
                   </label>
-                  <select
+                  <input
+                    type="text"
                     value={formData.camera}
                     onChange={(e) => setFormData({ ...formData, camera: e.target.value })}
                     className="w-full px-4 py-3 rounded bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#38BDF8] text-sm transition-colors"
-                  >
-                    {cameraOptions.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
+                  />
                 </div>
               </div>
 
@@ -235,30 +228,23 @@ export default function Contact() {
                   <label className="block text-[11px] font-mono tracking-wider text-gray-300 uppercase mb-1.5">
                     Master Deliverable Format
                   </label>
-                  <select
+                  <input
                     value={formData.deliverable}
                     onChange={(e) => setFormData({ ...formData, deliverable: e.target.value })}
                     className="w-full px-4 py-3 rounded bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#38BDF8] text-sm transition-colors"
-                  >
-                    {targetDeliverables.map((d) => (
-                      <option key={d} value={d}>{d}</option>
-                    ))}
-                  </select>
+                  />
+
                 </div>
 
                 <div>
                   <label className="block text-[11px] font-mono tracking-wider text-gray-300 uppercase mb-1.5">
                     Turnaround Timeline
                   </label>
-                  <select
+                  <input
                     value={formData.timeline}
                     onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
                     className="w-full px-4 py-3 rounded bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#38BDF8] text-sm transition-colors"
-                  >
-                    <option value="Standard 10-14 Days">Standard (10 - 14 Days)</option>
-                    <option value="Fast Track 5-7 Days">Fast Track (5 - 7 Days)</option>
-                    <option value="Rush 48h Delivery">Rush Turnaround (48 Hours)</option>
-                  </select>
+                  />
                 </div>
               </div>
 
@@ -283,11 +269,10 @@ export default function Contact() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className={`p-4 rounded text-xs font-mono ${
-                      status.state === 'success'
+                    className={`p-4 rounded text-xs font-mono ${status.state === 'success'
                         ? 'bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/30'
                         : 'bg-red-500/10 text-red-400 border border-red-500/30'
-                    }`}
+                      }`}
                   >
                     {status.message}
                   </motion.div>

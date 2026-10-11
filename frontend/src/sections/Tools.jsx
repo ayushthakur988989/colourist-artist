@@ -86,7 +86,7 @@ export default function Tools() {
       <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
         <div className="flex items-start gap-4 md:gap-6 mb-10 md:mb-14">
-          <TextReveal type="slideUp" className="text-section-number">07</TextReveal>
+          <TextReveal type="slideUp" className="text-section-number">08</TextReveal>
           <div>
             <TextReveal type="slideUp" delay={0.1}>
               <h2 className="text-display-lg mb-3">TOOLS & HARDWARE</h2>

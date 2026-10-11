@@ -84,7 +84,7 @@ export default function About() {
         
         {/* Section Header */}
         <div className="flex items-start gap-4 md:gap-6 mb-12 md:mb-16">
-          <TextReveal type="slideUp" className="text-section-number">08</TextReveal>
+          <TextReveal type="slideUp" className="text-section-number">09</TextReveal>
           <div>
             <TextReveal type="slideUp" delay={0.1}>
               <h2 className="text-display-lg mb-3">THE ARTIST</h2>
